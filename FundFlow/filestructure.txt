@@ -1,0 +1,35 @@
+|-- .gitignore
+|-- .npmrc
+|-- .prettierignore
+|-- .prettierrc
+|-- .svelte-kit
+    |-- ambient.d.ts
+    |-- non-ambient.d.ts
+    |-- tsconfig.json
+    |-- types
+        |-- route_meta_data.json
+        |-- src
+            |-- routes
+                |-- $types.d.ts
+|-- README.md
+|-- e2e
+    |-- demo.test.ts
+|-- eslint.config.js
+|-- package-lock.json
+|-- package.json
+|-- playwright.config.ts
+|-- src
+    |-- app.d.ts
+    |-- app.html
+    |-- demo.spec.ts
+    |-- lib
+        |-- index.ts
+    |-- routes
+        |-- +page.svelte
+        |-- page.svelte.test.ts
+|-- static
+    |-- favicon.png
+|-- svelte.config.js
+|-- tsconfig.json
+|-- vite.config.ts
+|-- vitest-setup-client.ts
