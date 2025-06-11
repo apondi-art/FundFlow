@@ -147,3 +147,4 @@ function getProgressPercentage(current: number, goal: number): number {
     </div>
   {/if}
 </div>
+
