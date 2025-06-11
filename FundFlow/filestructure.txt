@@ -4,6 +4,18 @@
 |-- .prettierrc
 |-- .svelte-kit
     |-- ambient.d.ts
+    |-- generated
+        |-- client
+            |-- app.js
+            |-- matchers.js
+            |-- nodes
+                |-- 0.js
+                |-- 1.js
+                |-- 2.js
+        |-- root.js
+        |-- root.svelte
+        |-- server
+            |-- internal.js
     |-- non-ambient.d.ts
     |-- tsconfig.json
     |-- types
@@ -18,18 +30,22 @@
 |-- package-lock.json
 |-- package.json
 |-- playwright.config.ts
+|-- postcss.config.js
 |-- src
+    |-- app.css
     |-- app.d.ts
     |-- app.html
     |-- demo.spec.ts
     |-- lib
         |-- index.ts
     |-- routes
+        |-- +layout.svelte
         |-- +page.svelte
         |-- page.svelte.test.ts
 |-- static
     |-- favicon.png
 |-- svelte.config.js
+|-- tailwind.config.js
 |-- tsconfig.json
 |-- vite.config.ts
 |-- vitest-setup-client.ts
