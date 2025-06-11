@@ -38,6 +38,7 @@
     |-- demo.spec.ts
     |-- lib
         |-- index.ts
+        |-- supabase.ts
     |-- routes
         |-- +layout.svelte
         |-- +page.svelte
