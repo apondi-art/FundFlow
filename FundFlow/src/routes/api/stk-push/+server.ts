@@ -1,17 +1,13 @@
+// src/routes/api/stk-push/+server.js
 import { json } from '@sveltejs/kit';
-import type { RequestEvent } from '@sveltejs/kit';
 import { getMpesaToken, generatePassword, formatPhoneNumber, MPESA_BASE_URL } from '$lib/mpesa.js';
 import { MPESA_SHORTCODE } from '$env/static/private';
 import { PUBLIC_APP_URL } from '$env/static/public';
 import { supabase } from '$lib/supabase.js';
-;
 
-
-
-export async function POST({ request }: RequestEvent) {
+export async function POST({ request }) {
     try {
         const { amount, phone, projectId } = await request.json();
-        
         
         // Validate input
         if (!amount || !phone || !projectId) {
@@ -70,6 +66,7 @@ export async function POST({ request }: RequestEvent) {
         });
 
         const stkData = await stkResponse.json();
+        console.log('STK Push Response:', stkData);
         
         if (stkData.ResponseCode === '0') {
             // Update donation record with checkout request ID
