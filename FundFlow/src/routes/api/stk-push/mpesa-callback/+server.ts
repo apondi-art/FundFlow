@@ -1,9 +1,8 @@
 // src/routes/api/mpesa-callback/+server.js
 import { json } from '@sveltejs/kit';
 import { supabase } from '$lib/supabase.js';
-import type { RequestEvent } from '@sveltejs/kit';
 
-export async function POST({ request }: RequestEvent) {
+export async function POST({ request }) {
     try {
         const callbackData = await request.json();
         console.log('M-Pesa Callback received:', JSON.stringify(callbackData, null, 2));
@@ -11,7 +10,7 @@ export async function POST({ request }: RequestEvent) {
         // Extract the callback data
         const { Body } = callbackData;
         const { stkCallback } = Body;
-
+        
         const checkoutRequestId = stkCallback.CheckoutRequestID;
         const resultCode = stkCallback.ResultCode;
         const resultDesc = stkCallback.ResultDesc;
@@ -37,17 +36,16 @@ export async function POST({ request }: RequestEvent) {
             // Extract receipt number and date from callback items
             if (stkCallback.CallbackMetadata && stkCallback.CallbackMetadata.Item) {
                 const items = stkCallback.CallbackMetadata.Item;
-
-                items.forEach((item: { Name: string; Value: string | number }) => {
+                
+                items.forEach(item => {
                     if (item.Name === 'MpesaReceiptNumber') {
-                        mpesaReceiptNumber = String(item.Value); // convert in case it's a number
+                        mpesaReceiptNumber = item.Value;
                     }
                     if (item.Name === 'TransactionDate') {
-                        transactionDate = String(item.Value);
+                        transactionDate = item.Value;
                     }
                 });
             }
-
 
             // Update donation record to completed
             const { error: updateDonationError } = await supabase
@@ -65,7 +63,7 @@ export async function POST({ request }: RequestEvent) {
             } else {
                 // Update project current amount
                 const newCurrentAmount = donation.projects.current_amount + donation.amount;
-
+                
                 const { error: updateProjectError } = await supabase
                     .from('projects')
                     .update({ current_amount: newCurrentAmount })
@@ -80,7 +78,7 @@ export async function POST({ request }: RequestEvent) {
             // Payment failed
             const { error: updateError } = await supabase
                 .from('donations')
-                .update({
+                .update({ 
                     status: 'failed',
                     failure_reason: resultDesc,
                     updated_at: new Date().toISOString()
@@ -100,7 +98,7 @@ export async function POST({ request }: RequestEvent) {
 
     } catch (error) {
         console.error('Callback processing error:', error);
-
+        
         // Still return success to M-Pesa to avoid retries
         return json({
             ResultCode: 0,
