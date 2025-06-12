@@ -54,6 +54,7 @@
                         |-- $types.d.ts
                 |-- projects
                     |-- [id]
+                |-- proxy+layout.server.js
 |-- README.md
 |-- e2e
     |-- demo.test.ts

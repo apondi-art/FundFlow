@@ -1,5 +1,9 @@
-export const load = async ({ event, resolve }) => {
-  const sessionCookie = event.cookies.get('admin-session')
-  event.locals.session = sessionCookie ? JSON.parse(sessionCookie) : null
-  return await resolve(event)
-}
+/** @type {import('./$types').LayoutServerLoad} */
+export const load = async ({ cookies, locals }) => {
+    const sessionCookie = cookies.get('admin-session');
+    const session = sessionCookie ? JSON.parse(sessionCookie) : null;
+    
+    return {
+        session
+    };
+};
